@@ -27,13 +27,13 @@ def onnx2Keras(path):
     onnx_model = onnx.load(path)
     model = onnx_to_keras(onnx_model, ['input_imgs', 'big_input_imgs', 'desire', 'traffic_convention', 'initial_state'],
                           name_policy='renumerate', change_ordering=False)
-    model.save("keras")
+    model.save("models/keras")
 
 
 def onnx2Pytorch(path):
-    code_gen.gen(path, "pytorchPython")
+    code_gen.gen(path, "pytorchGenerator")
     model = Model()
-    torch.save(model, 'pytorch/model.pt')
+    torch.save(model, 'models/supercombo.pt')
 
 
 def sigmoid(input):
@@ -65,10 +65,10 @@ def seperate_points_and_std_values(df):
 
 def main():
     print("start")
-    onnx_model = "supercombo.onnx"
+    onnx_model = "models/supercombo.onnx"
     # onnx2Keras(onnx_model)
-    k_model = tf.keras.models.load_model("keras")
-    p_model = torch.load('pytorch/model.pt')
+    k_model = tf.keras.models.load_model("models/keras")
+    p_model = torch.load('models/supercombo.pt')
 
     results = []
     counter = 0
@@ -157,7 +157,6 @@ def main():
             # results.append(np.array(result[0]))
 
             # Keras runner
-            print("Num GPUs:", len(tf.config.list_physical_devices('GPU')))
 
             result = k_model.predict([parsed_arr, parsed_arr2, desire_data, traffic_convention_data, initial_state_data])
             results.append(np.array(result))

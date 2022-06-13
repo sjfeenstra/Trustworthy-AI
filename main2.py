@@ -1,19 +1,22 @@
+import os
+
 import cv2
 import onnx
-from onnx_tf.backend import prepare
 from onnx2keras import onnx_to_keras
 from onnx_pytorch import code_gen
-from pytorchPython.model import Model
+
+
+from pytorchGenerator.model import Model
 import numpy as np
 import onnxruntime
 import pandas as pd
 import tensorflow as tf
 import torch
-import tensorflow_datasets as tfds
 
-import onnx
 
 from matplotlib import pyplot as plt
+
+onnx_model = "models/supercombo.onnx"
 
 X_IDXS = np.array([0., 0.1875, 0.75, 1.6875, 3., 4.6875,
                    6.75, 9.1875, 12., 15.1875, 18.75, 22.6875,
@@ -64,9 +67,10 @@ def seperate_points_and_std_values(df):
 
 
 def main():
+    # Run first time
+    onnx2Pytorch(onnx_model)
+
     print("start")
-    onnx_model = "models/supercombo.onnx"
-    # onnx2Keras(onnx_model)
     k_model = tf.keras.models.load_model("models/keras")
     p_model = torch.load('models/supercombo.pt')
 

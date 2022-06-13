@@ -68,7 +68,7 @@ def seperate_points_and_std_values(df):
 
 def main():
     # Run first time
-    onnx2Pytorch(onnx_model)
+    # onnx2Pytorch(onnx_model)
 
     print("start")
     k_model = tf.keras.models.load_model("models/keras")

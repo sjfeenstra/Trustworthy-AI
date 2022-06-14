@@ -42,7 +42,7 @@ def seperate_points_and_std_values(df):
 
 def main():
     print("start")
-    model = "supercombo.onnx"
+    model = "models/supercombo.onnx"
 
     cap = cv2.VideoCapture('data/roadcamera.mp4')
     parsed_images = []

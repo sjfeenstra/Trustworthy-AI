@@ -5,14 +5,12 @@ import onnx
 from onnx2keras import onnx_to_keras
 from onnx_pytorch import code_gen
 
-
 from pytorchGenerator.model import Model
 import numpy as np
 import onnxruntime
 import pandas as pd
 import tensorflow as tf
 import torch
-
 
 from matplotlib import pyplot as plt
 
@@ -151,24 +149,28 @@ def main():
                 traffic_convention_data = np.array([[1, 0]]).astype('float32')
 
             # onnx runner
-            # result = session.run([output_name], {input_imgs: parsed_arr,
-            #                                      big_input_imgs: parsed_arr2,
-            #                                      desire: desire_data,
-            #                                      traffic_convention: traffic_convention_data,
-            #                                      initial_state: initial_state_data
-            #                                      })
-            #
-            # results.append(np.array(result[0]))
+            result = session.run([output_name], {input_imgs: parsed_arr,
+                                                 big_input_imgs: parsed_arr2,
+                                                 desire: desire_data,
+                                                 traffic_convention: traffic_convention_data,
+                                                 initial_state: initial_state_data
+                                                 })
+
+            results.append(np.array(result[0]))
 
             # Keras runner
 
-            result = k_model.predict([parsed_arr, parsed_arr2, desire_data, traffic_convention_data, initial_state_data])
+            result = k_model.predict(
+                [parsed_arr, parsed_arr2, desire_data, traffic_convention_data, initial_state_data])
             results.append(np.array(result))
 
             # pytorch runner
-            # with torch.no_grad():
-            #     result = p_model(torch.from_numpy(parsed_arr), torch.from_numpy(parsed_arr2), torch.from_numpy(desire_data), torch.from_numpy(traffic_convention_data), torch.from_numpy(initial_state_data))
-            #     results.append(np.array(result))
+            with torch.no_grad():
+                result = p_model(torch.from_numpy(parsed_arr), torch.from_numpy(parsed_arr2),
+                                 torch.from_numpy(desire_data), torch.from_numpy(traffic_convention_data),
+                                 torch.from_numpy(initial_state_data))
+                results.append(np.array(result))
+            combined = np.concatenate(results, axis=0)
 
     print('end')
 

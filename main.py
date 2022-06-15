@@ -52,7 +52,7 @@ def main():
 
     results = []
     counter = 0
-    end_counter = 4500
+    end_counter = 200
     width = 512
     height = 256
     dim = (width, height)

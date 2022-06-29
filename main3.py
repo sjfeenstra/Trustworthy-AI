@@ -66,13 +66,7 @@ def main():
     tf.compat.v1.disable_eager_execution()
     k_model = tf.keras.models.load_model("models/keras")
 
-    result = k_model.predict(
-        input_dataset)
-
-    lane_lines_prob = sigmoid(result[:, lane_lines_prob_start_idx + 1:lane_lines_prob_end_idx:2])
-    # cd = ad.cd.RegressorUncertaintyDrift(
-    #     X_ref, model=reg, backend='tensorflow', p_val=0.05, uncertainty_type='mc_dropout', n_evals=100
-    # )
+    result = k_model.predict(input_dataset)
 
 
     # pytorch model
@@ -83,7 +77,7 @@ def main():
     #                  torch.from_numpy(desire_data), torch.from_numpy(trafficConvention_data),
     #                  torch.from_numpy(initialState_data))
     # result = result.detach().numpy()
-    # lane_lines_prob = sigmoid(result[:, lane_lines_prob_start_idx + 1:lane_lines_prob_end_idx:2])
+    lane_lines_prob = sigmoid(result[:, lane_lines_prob_start_idx + 1:lane_lines_prob_end_idx:2])
 
     probability = (lane_lines_prob >= 0.7).astype(int)
     accuracy = np.sum(probability == output_data) / (len(output_data) * len(output_data[0]))

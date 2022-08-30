@@ -32,9 +32,9 @@ def onnx2Keras(path):
 
 
 def onnx2Pytorch(path):
-    code_gen.gen(path, "pytorchGenerator")
+    code_gen.gen(path, "../pytorchGenerator")
     model = Model()
-    torch.save(model, 'models/supercombo.pt')
+    torch.save(model, '../models/supercombo.pt')
 
 
 def sigmoid(input):

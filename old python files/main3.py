@@ -46,7 +46,7 @@ def main():
     lane_lines_prob_start_idx = lanes_end_idx
     lane_lines_prob_end_idx = lane_lines_prob_start_idx + 8
 
-    data = np.load('data/numpy.npz')
+    data = np.load('../data/numpy.npz')
 
     inputImgs_data = data['inputImgs']
     bigInputImgs_data = data['bigInputImgs']

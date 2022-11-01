@@ -31,7 +31,7 @@ def main():
 
     results = []
     counter = 0
-    end_counter = 200
+    end_counter = 1000
     width = 512
     height = 256
     dim = (width, height)

@@ -18,15 +18,13 @@ def parse_image(frame):
     parsed[5] = frame[H + H // 4:H + H // 2].reshape((-1, H // 2, W // 2))
     return parsed
 
-
 def main():
-    print("start")
     model = "models/supercombo.onnx"
 
-    cap = cv2.VideoCapture('data/roadcamera.mp4')
+    cap = cv2.VideoCapture('data/roadcamera2.mp4')
     parsed_images = []
 
-    cap2 = cv2.VideoCapture('data/widecamera.mp4')
+    cap2 = cv2.VideoCapture('data/widecamera2.mp4')
     parsed_images2 = []
 
     results = []
@@ -80,6 +78,7 @@ def main():
     session = onnxruntime.InferenceSession(model, None)
     while cap.isOpened() and cap2.isOpened():
         counter = counter + 1
+        print(counter)
 
         if counter >= end_counter:
             break
@@ -148,21 +147,19 @@ def main():
                 desireNPZ = desire_data
                 trafficConventionNPZ = traffic_convention_data
                 initialStateNPZ = initial_state_data
-                outputNPZ = np.array(result, dtype=np.float32)
+                outputNPZ = np.array([[1, 1, 1, 0]], dtype=np.float32)
             else:
                 inputImgsNPZ = np.concatenate((inputImgsNPZ, parsed_arr), axis=0)
                 bigInputImgsNPZ = np.concatenate((bigInputImgsNPZ, parsed_arr2), axis=0)
                 desireNPZ = np.concatenate((desireNPZ, desire_data), axis=0)
                 trafficConventionNPZ = np.concatenate((trafficConventionNPZ, traffic_convention_data), axis=0)
                 initialStateNPZ = np.concatenate((initialStateNPZ, initial_state_data), axis=0)
-                outputNPZ = np.concatenate((outputNPZ, result), axis=0)
+                outputNPZ = np.concatenate((outputNPZ, [[1, 1, 1, 0]]), axis=0)
 
             recurrent_layer = res[:, :, recurent_start_idx:recurent_end_idx]
             initial_state_data = recurrent_layer[0]
-    np.savez_compressed('data/numpy4', inputImgs=inputImgsNPZ, bigInputImgs=bigInputImgsNPZ, desire=desireNPZ,
+    np.savez_compressed('data/numpy12', inputImgs=inputImgsNPZ, bigInputImgs=bigInputImgsNPZ, desire=desireNPZ,
                         trafficConvention=trafficConventionNPZ, initialState=initialStateNPZ, output=outputNPZ)
-    print(trafficConventionNPZ)
-    print("end")
 
 
 if __name__ == "__main__":

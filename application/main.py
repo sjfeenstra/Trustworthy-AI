@@ -1,8 +1,13 @@
 import dearpygui.dearpygui as dpg
 import numpy as np
 import cv2
-from PIL import Image
-from matplotlib import cm
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+
+load_dotenv(dotenv_path=Path('config.env'))
+
 
 from transparency import Transparency
 from technicalRobustnessAndSafety import TechnicalRobustnessAndSafety
@@ -20,7 +25,7 @@ if __name__ == "__main__":
     # Create context class
     trustworthyAI = TrustworthyAI(TRaSPrinciple)
 
-    cap = cv2.VideoCapture('data/roadcamera2.mp4')
+    cap = cv2.VideoCapture(os.getenv('FCAM'))
 
     frame_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     frame_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -63,7 +68,7 @@ if __name__ == "__main__":
     lineList = ["Far Left", "Close Left", "Close Right", "Far Right"]
     typeList = ["Traffic Convention", "Desire"]
 
-    width, height, channels, data = dpg.load_image('data/roadlines.png')
+    width, height, channels, data = dpg.load_image('../data/roadlines.png')
 
     with dpg.texture_registry(show=False):
         dpg.add_raw_texture(frame_width, frame_height, getTextureData(frames, 0), format=dpg.mvFormat_Float_rgb,

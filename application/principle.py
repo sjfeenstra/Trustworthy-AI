@@ -1,14 +1,15 @@
 from abc import ABC, abstractmethod
 import onnxruntime
 import numpy as np
+import os
 
 
 # Strategy interface
 class Principle(ABC):
-    model = "models/supercombo.onnx"
+    model = os.getenv('MODEL')
     session = onnxruntime.InferenceSession(model, None)
 
-    data = np.load('data/numpy12.npz')
+    data = np.load(os.getenv('DATA'))
 
     plan_start_idx = 0
     plan_end_idx = 4955

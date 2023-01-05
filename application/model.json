@@ -1,0 +1,77 @@
+{
+  "information": "Het openpilot model 5 verschillende inputs, elk van deze inputs bestaat uit een numpy array waarvan het formaat hiervan tussen haakjes (zoals [1,12,128,256]) wordt weergegeven. Nadat deze inputs door het Openpilot model zijn gehaald komt daar een resultaat uit, dit resultaat is een numpy array van 6524 getallen. Het resultaat is op te splitsen in 8 verschillende onderdelen.",
+  "inputs": [
+    {
+      "name": "Image Stream",
+      "size": "[1,12,128,256]",
+      "description": "Deze input zijn twee opeenvolgende beelden van de vooruitkijkende normale camera.",
+      "example": "cameraexample"
+    },
+    {
+      "name": "Wide Image Stream",
+      "size": "[1,12,128,256]",
+      "description": "Deze input zijn twee opeenvolgende beelden van het vooruitkijkende breedbeeld(visoog) camera.",
+      "example": "widecameraexample"
+    },
+    {
+      "name": "Desire",
+      "size": "[1,8]",
+      "description": "Een 8 bit array die het model meegeeft wat voor actie er gebeurt. Daarbij staat elke index voor een andere specifieke actie die de auto aan het uitvoeren is.",
+      "example": "Voorbeeld input: [[0, 0, 0, 0, 1, 0, 0, 0]]\nDit voorbeeld betekent dat de auto de actie van index 5 uitvoert, deze actie is dat de auto rechts aan houdt.\n"
+    },
+    {
+      "name": "Traffic Convention",
+      "size": "[1,2]",
+      "description": "Een array van 2 bits die aangeeft of je aan de rechter kant of aan de linker kant rijdt.",
+      "example": "Voorbeeld input rechter kant rijden: [[0, 1]]\nVoorbeeld input linker kant rijden: [[1, 0]]\n"
+    },
+    {
+      "name": "Recurrent State",
+      "size": "[1,512]",
+      "description": "Een vector van 512 van de vorige status van het model, deze vector wordt teruggegeven in het resultaat van het model.",
+      "example": "Voorbeeld input: [0, 1, 2, 1, 0, …]"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "Plans",
+      "size": "[1,4955]",
+      "description": "Het model berekend 5 mogelijke vervolg plannen van het de auto. Elk plan bestaat uit de verwachte positie, snelheid, rotatie van de auto en daarbij wordt per plan aangegeven wat de waarschijnlijkheid daarvan is."
+    },
+    {
+      "name": "Lane Lines",
+      "size": "[1,536]",
+      "description": "Het model geeft de positie en de waarschijnlijkheid van het bestaan van 4 verschillende weglijnen terug. Het gaat daarbij om de weglijnen:\n-\tVer links (FL)\n-\tDichtbij links (CL)\n-\tDichtbij Rechts (CR)\n-\tVer rechts (FR)\n"
+    },
+    {
+      "name": "Road Edges",
+      "size": "[1,256]",
+      "description": "Dit onderdeel bestaat uit de positie van de wegranden aan de rechter- en linkerkant van de auto."
+    },
+    {
+      "name": "Leads",
+      "size": "[1, 105]",
+      "description": "Het model geeft hier 2 verschillende voorspellingen terug van het voertuig dat voor de auto rijdt. De gegevens die voorspelt worden zijn de positie, snelheid en verwachte versnelling. Daarnaast wordt ook voor elke voorspelling aangegeven wat de waarschijnlijkheid daarvan is."
+    },
+    {
+      "name": "Stop Lines",
+      "size": "[1, 52]",
+      "description": "In deze onderdeel wordt een voorspelling gedaan of er een stoplijn aankomt. Het model doet drie voorspellingen van de stoplijn. Per voorspelling wordt bepaald wat de positie, rotatie van de stoplijn is. Daarnaast wordt gekeken wat de snelheid van de auto is en hoelang het duurt totdat de stoplijn is bereikt. Per voorspelling wordt ook weer aangegeven wat de waarschijnlijkheid hiervan is."
+    },
+    {
+      "name": "Meta",
+      "size": "[1, 88]",
+      "description": "Het onderdeel Meta bestaat uit 4 verschillende gegevens. Deze gegevens zijn:\n-\tWaarschijnlijkheid van Desire.\n-\tOf openpilot is geactiveerd\n-\tIs er handmatige invoer, gebruik van gas/rem of wordt er gestuurd.\n-\tWordt er gebruik gemaakt van de knipperlichten.\n"
+    },
+    {
+      "name": "Pose",
+      "size": "[1, 12]",
+      "description": "Het model geeft hier de huidige snelheid en de rotatie van het voertuig terug."
+    },
+    {
+      "name": "Recurrent State",
+      "size": "[1, 512]",
+      "description": "Dit is gelijk aan de Recurrent State van de input en bestaat dus uit een vector van 512 van de status van het model."
+    }
+  ]
+}

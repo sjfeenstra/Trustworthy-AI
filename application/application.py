@@ -118,44 +118,22 @@ if __name__ == "__main__":
                         dpg.add_separator()
                         for principle in data['principles']:
                             dpg.add_text(principle['name'])
-                            dpg.add_text(principle['description'],wrap=1200)
-                            dpg.add_separator()
+                            dpg.add_text(principle['description'])
                         f.close()
-
 
                     with dpg.tab(label="Openpilot model", tag="model_tab"):
-                        f = open('model.json')
-                        data = json.load(f)
                         with dpg.collapsing_header(label="Model visualisatie"):
                             dpg.add_separator()
-                            with dpg.drawlist(width=500, height=300):
-                                dpg.draw_image("image_id2", (0, 0), (500, 300), uv_min=(0, 0), uv_max=(1, 1))
-                            dpg.add_text(data['information'], wrap=1200)
-                            dpg.add_separator()
-
+                            with dpg.drawlist(width=600, height=400):
+                                dpg.draw_image("image_id2", (0, 0), (600, 400), uv_min=(0, 0), uv_max=(1, 1))
                         with dpg.collapsing_header(label="Beschrijving inputs model"):
                             dpg.add_separator()
-                            for input in data['inputs']:
-                                dpg.add_text(input['name'] + " : " + input['size'])
-                                dpg.add_text(input['description'], wrap=1200)
-                                if "cameraexample" not in input["example"]:
-                                    dpg.add_text(input['example'], wrap=1200)
-                                if input['name'] == "Image Stream":
-                                    with dpg.drawlist(width=600, height=150):
-                                        dpg.draw_image("image_id3", (0, 0), (600, 150), uv_min=(0, 0), uv_max=(1, 1))
-                                if input['name'] == "Wide Image Stream":
-                                    with dpg.drawlist(width=600, height=150):
-                                        dpg.draw_image("image_id4", (0, 0), (600, 150), uv_min=(0, 0), uv_max=(1, 1))
-                                dpg.add_separator()
-
+                            with dpg.drawlist(width=600, height=400):
+                                dpg.draw_image("image_id3", (0, 0), (600, 150), uv_min=(0, 0), uv_max=(1, 1))
+                            with dpg.drawlist(width=600, height=400):
+                                dpg.draw_image("image_id4", (0, 0), (600, 150), uv_min=(0, 0), uv_max=(1, 1))
                         with dpg.collapsing_header(label="Beschrijving resultaten model"):
                             dpg.add_separator()
-                            for output in data['outputs']:
-                                dpg.add_text(output['name'] + " : " + output['size'])
-                                dpg.add_text(output['description'], wrap=1200)
-                                dpg.add_separator()
-                        f.close()
-
                         with dpg.collapsing_header(label="Technische opbouw resultaten"):
                             dpg.add_separator()
                             f = open('Openpilotmodel.json')
@@ -182,11 +160,10 @@ if __name__ == "__main__":
                                                     with dpg.plot_axis(dpg.mvYAxis, label="Probability",
                                                                        tag=f'{principle.name}{type}{line} yaxis'):
                                                         dpg.set_axis_limits(dpg.last_item(), -0.05, 1.05)
-                                                        dpg.set_axis_limits(f'{principle.name}{type}{line} xaxis', 0, 1200)
                                                         dpg.add_line_series([0, 0], [-0.05, 1.05],
                                                                             tag=f'{principle.name}{type}{line} line')
                                         with dpg.group(tag=f'{principle.name}{type} group'):
-                                            dpg.add_slider_int(width=-1, max_value=trustworthyAI.principle.datasize-2, callback=plot_line, tag=f'{principle.name}{type} slider')
+                                            dpg.add_slider_int(width=-1, max_value=trustworthyAI.principle.datasize, callback=plot_line, tag=f'{principle.name}{type} slider')
                                             dpg.add_separator()
                                             with dpg.drawlist(width=400, height=350):
                                                 dpg.draw_image("texture_tag", (0, 0), (400, 300), uv_min=(0, 0),

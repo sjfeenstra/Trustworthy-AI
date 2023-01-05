@@ -1,0 +1,1250 @@
+{
+  "objects": [
+    {
+      "objectType": "ModelOutputPlans",
+      "name": "plans",
+      "size": 4955,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputPlanPrediction",
+          "name": "prediction",
+          "size": 991,
+          "amount": 5,
+          "objects": [
+            {
+              "objectType": "ModelOutputPlanElement",
+              "name": "mean",
+              "size": 15,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "position ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "velocity ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "acceleration ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "rotation ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "rotation_rate ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputPlanElement",
+              "name": "std",
+              "size": 15,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "position ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "velocity ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "acceleration ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "rotation ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "rotation_rate ",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "objectType": "float",
+              "name": "prob",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objectType": "ModelOutputLaneLines",
+      "name": "lane_lines",
+      "size": 536,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputLinesXY",
+          "name": "mean",
+          "size": 264,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "left_far",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "left_near",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "right_near",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "right_far",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "objectType": "ModelOutputLinesXY",
+          "name": "std",
+          "size": 264,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "left_far",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "left_near",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "right_near",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "right_far",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "objectType": "ModelOutputLinesProb",
+          "name": "prob",
+          "size": 8,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "ModelOutputLineProbVal",
+              "name": "left_far",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "val_deprecated",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "val",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputLineProbVal",
+              "name": "left_near",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "val_deprecated",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "val",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputLineProbVal",
+              "name": "right_near",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "val_deprecated",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "val",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputLineProbVal",
+              "name": "right_far",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "val_deprecated",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "val",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objectType": "ModelOutputRoadEdges",
+      "name": "road_edges",
+      "size": 264,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputEdgessXY",
+          "name": "mean",
+          "size": 132,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "left",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "right",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "objectType": "ModelOutputLinesXY",
+          "name": "std",
+          "size": 264,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "left",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputYZ ",
+              "name": "right",
+              "size": 2,
+              "amount": 33,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "z",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objectType": "ModelOutputLeads",
+      "name": "leads",
+      "size": 105,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputLeadPrediction",
+          "name": "prediction",
+          "size": 51,
+          "amount": 2,
+          "objects": [
+            {
+              "objectType": "ModelOutputLeadElement",
+              "name": "mean",
+              "size": 4,
+              "amount": 6,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "x",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "velocity",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "acceleration",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputLeadElement ",
+              "name": "std",
+              "size": 4,
+              "amount": 6,
+              "objects": [
+                {
+                  "objectType": "float ",
+                  "name": "x",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "y",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "velocity",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "acceleration",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "float",
+              "name": "prob",
+              "size": 1,
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "objectType": "float",
+          "name": "prob",
+          "size": 1,
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "objectType": "ModelOutputStopLines",
+      "name": "stop_lines",
+      "size": 52,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputStopLinePrediction",
+          "name": "prediction",
+          "size": 17,
+          "amount": 3,
+          "objects": [
+            {
+              "objectType": "ModelOutputStopLineElement",
+              "name": "mean",
+              "size": 8,
+              "amount": 1,
+              "objects": [
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "position",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "rotation",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "float ",
+                  "name": "speed",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "time",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "ModelOutputStopLineElement",
+              "name": "std",
+              "size": 8,
+              "amount": 1,
+              "objects": [
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "position",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "ModelOutputXYZ",
+                  "name": "rotation",
+                  "size": 3,
+                  "amount": 1,
+                  "objects": [
+                    {
+                      "objectType": "float",
+                      "name": "x",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "y",
+                      "size": 1,
+                      "amount": 1
+                    },
+                    {
+                      "objectType": "float",
+                      "name": "z",
+                      "size": 1,
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "objectType": "float ",
+                  "name": "speed",
+                  "size": 1,
+                  "amount": 1
+                },
+                {
+                  "objectType": "float ",
+                  "name": "time",
+                  "size": 1,
+                  "amount": 1
+                }
+              ]
+            },
+            {
+              "objectType": "float",
+              "name": "prob",
+              "size": 1,
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "objectType": "float",
+          "name": "prob",
+          "size": 1,
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "objectType": "ModelOutputMeta",
+      "name": "meta",
+      "size": 88,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputDesireProb",
+          "name": "desire_state_prob",
+          "size": 8,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "none",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "turn_left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "turn_right",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "lane_change_left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "lane_change_right",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "keep_left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "keep_right",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "null",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "objectType": "ModelOutputDisengageProb",
+          "name": "disengage_prob",
+          "size": 7,
+          "amount": 5,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "gas_disengage",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "brake_disengage",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "steer_override",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "brake_3ms2",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "brake_4ms2",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "brake_5ms2",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "gas_pressed",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "objectType": "ModelOutputDesireProb",
+          "name": "desire_pred_prob",
+          "size": 8,
+          "amount": 4,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "none",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "turn_left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "turn_right",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "lane_change_left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "lane_change_right",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "keep_left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "keep_right",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "null",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "objectType": "ModelOutputBlinkerProb",
+          "name": "blinker_prob",
+          "size": 2,
+          "amount": 6,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "left",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "right",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objectType": "ModelOutputPose",
+      "name": "pose",
+      "size": 12,
+      "amount": 1,
+      "objects": [
+        {
+          "objectType": "ModelOutputXYZ",
+          "name": "velocity_mean",
+          "size": 3,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "x",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "y",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "z",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        },
+                {
+          "objectType": "ModelOutputXYZ",
+          "name": "rotation_mean",
+          "size": 3,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "x",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "y",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "z",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        },
+                {
+          "objectType": "ModelOutputXYZ",
+          "name": "velocity_std",
+          "size": 3,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "x",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "y",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "z",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        },
+                {
+          "objectType": "ModelOutputXYZ",
+          "name": "rotation_std",
+          "size": 3,
+          "amount": 1,
+          "objects": [
+            {
+              "objectType": "float",
+              "name": "x",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "y",
+              "size": 1,
+              "amount": 1
+            },
+            {
+              "objectType": "float",
+              "name": "z",
+              "size": 1,
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objectType": "ModelState",
+      "name": "current_state",
+      "size": 512,
+      "amount": 1
+    }
+  ]
+}

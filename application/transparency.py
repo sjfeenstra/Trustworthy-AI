@@ -5,14 +5,11 @@ import numpy as np
 
 # Concrete strategies
 class Transparency(Principle):
-    @property
-    def toolResults(self) -> None:
-        return self._toolResults
 
-    def addToolResults(self) -> None:
-        pass
+    def __init__(self):
+        self._results = []
 
-    def useTools(self) -> None:
+    def addResults(self, data: np.array, type2: str, type: str) -> None:
         pass
 
     def sigmoid(self, input):
@@ -23,13 +20,6 @@ class Transparency(Principle):
         pass
 
     def calculateAccuracy(self, result):
-        pass
-
-    def __init__(self):
-        self._results = None
-        self._toolResults = None
-
-    def addResults(self, data: np.array, type: str) -> None:
         pass
 
     @property

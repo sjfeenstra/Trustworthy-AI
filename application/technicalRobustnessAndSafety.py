@@ -3,30 +3,24 @@ import numpy as np
 
 
 class TechnicalRobustnessAndSafety(Principle):
-    @property
-    def toolResults(self) -> list[dict]:
-        return self._toolResults
 
-    def sigmoid(self, input):
-        return 1 / (1 + np.exp(-input))
+    def sigmoid(self, input) -> np.array:
+        return super().sigmoid(input)
 
     def runModel(self, inputImgs=None, bigInputImgs=None, desire=None,
                  trafficConvention=None, initialState=None):
-        pass
+        return super().runModel(inputImgs, bigInputImgs, desire, trafficConvention, initialState)
 
     def calculateAccuracy(self, result):
-        pass
-
-    def useTools(self):
-        self.addToolResults()
+        return super().calculateAccuracy(result)
 
     def __init__(self):
         self._results = []
-        self._toolResults = []
+        self._name = "Technical Robustness and Safety"
 
     @property
     def name(self) -> str:
-        return "Technical Robustness and Safety"
+        return self._name
 
     @property
     def results(self) -> list[dict]:
@@ -36,30 +30,19 @@ class TechnicalRobustnessAndSafety(Principle):
     def results(self, value):
         self._results = value
 
-    @toolResults.setter
-    def toolResults(self, value):
-        self._results = value
-
-    def addResults(self, data: np.array, type: str) -> None:
+    def addResults(self, data: np.array, type2: str, type: str) -> None:
         lineList = ["Far Left", "Close Left", "Close Right", "Far Right"]
-        res, acc = super().calculateAccuracy(data)
+        res, acc = self.calculateAccuracy(data)
         for b in range(4):
             self._results.append({
                 "type": type,
+                "type2": type2,
                 "line": lineList[b],
                 "data": np.column_stack(res)[b].tolist(),
                 "accuracy": acc
             })
 
-    def addToolResults(self) -> None:
-        tools = ["AdvBox", "Adversial Robustness 360 Toolbox", "Cleverhans", "Foolbox"]
-        for b in range(len(tools)):
-            self._toolResults.append({
-                "tool": tools[b],
-                "result": "Expected 1 input variable but got 5",
-            })
-
-    def doTests(self) -> None:
+    def doTests(self):
         # trafficConventionShape = super().trafficConvention_data.shape
         # trafficConvention_data_inverted = super().trafficConvention_data[::, ::-1]
         # trafficConvention_data_ones = np.ones(trafficConventionShape).astype(np.float32)
@@ -85,32 +68,29 @@ class TechnicalRobustnessAndSafety(Principle):
         # desire_data_7 = desire_data_zeros.copy()
         # desire_data_7[:, 7] = 1.0
 
-        self.addResults(super().runModel(),
-                        "Default")
-        # self.addResults(super().runModel(trafficConvention=trafficConvention_data_inverted),
-        #                 "Inverted Traffic Convention")
-        # self.addResults(super().runModel(trafficConvention=trafficConvention_data_ones),
-        #                 "Ones Traffic Convention")
-        # self.addResults(super().runModel(trafficConvention=trafficConvention_data_zeros),
-        #                 "Zeros Traffic Convention")
+        self.addResults(super().runModel(), "", "Default", )
+        # self.addResults(super().runModel(trafficConvention=trafficConvention_data_inverted), "Left hand drive",
+        #                 "Traffic Convention")
+        # self.addResults(super().runModel(trafficConvention=trafficConvention_data_ones), "Ones", "Traffic Convention")
+        # self.addResults(super().runModel(trafficConvention=trafficConvention_data_zeros), "Zeros",
+        #                 "Traffic Convention")
         #
-        # self.addResults(super().runModel(desire=desire_data_zeros),
-        #                 "Zeros Desire")
-        # self.addResults(super().runModel(desire=desire_data_ones),
-        #                 "Ones Desire")
+        # self.addResults(super().runModel(desire=desire_data_zeros), "Zeros", "Desire")
+        # self.addResults(super().runModel(desire=desire_data_ones), "Ones", "Desire")
         # self.addResults(super().runModel(desire=desire_data_0),
-        #                 "index 0 Desire")
+        #                 "None", "Desire")
         # self.addResults(super().runModel(desire=desire_data_1),
-        #                 "index 1 Desire")
+        #                 "Turn left", "Desire")
         # self.addResults(super().runModel(desire=desire_data_2),
-        #                 "index 2 Desire")
+        #                 "Turn right", "Desire")
         # self.addResults(super().runModel(desire=desire_data_3),
-        #                 "index 3 Desire")
+        #                 "Lane change left", "Desire")
         # self.addResults(super().runModel(desire=desire_data_4),
-        #                 "index 4 Desire")
+        #                 "Lane change right", "Desire")
         # self.addResults(super().runModel(desire=desire_data_5),
-        #                 "index 5 Desire")
+        #                 "Keep left", "Desire")
         # self.addResults(super().runModel(desire=desire_data_6),
-        #                 "index 6 Desire")
+        #                 "Keep right", "Desire")
         # self.addResults(super().runModel(desire=desire_data_7),
-        #                 "index 7 Desire")
+        #                 "Null", "Desire")
+        return self.results

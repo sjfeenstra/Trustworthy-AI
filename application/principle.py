@@ -50,11 +50,6 @@ class Principle(ABC):
 
     @property
     @abstractmethod
-    def toolResults(self) -> None:
-        pass
-
-    @property
-    @abstractmethod
     def results(self) -> None:
         pass
 
@@ -63,14 +58,7 @@ class Principle(ABC):
         pass
 
     @abstractmethod
-    def addResults(self, data: np.array, type: str) -> None:
-        pass
-    @abstractmethod
-    def addToolResults(self) -> None:
-        pass
-
-    @abstractmethod
-    def useTools(self) -> None:
+    def addResults(self, data: np.array, typ2: str, type: str) -> None:
         pass
 
     @abstractmethod

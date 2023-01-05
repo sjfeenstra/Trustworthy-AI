@@ -29,7 +29,7 @@ def main():
 
     results = []
     counter = 0
-    end_counter = 1000
+    end_counter = 1200
     width = 512
     height = 256
     dim = (width, height)
@@ -157,8 +157,8 @@ def main():
                 outputNPZ = np.concatenate((outputNPZ, [[1, 1, 1, 0]]), axis=0)
 
             recurrent_layer = res[:, :, recurent_start_idx:recurent_end_idx]
-            initial_state_data = recurrent_layer[0]
-    np.savez_compressed('data/numpy12', inputImgs=inputImgsNPZ, bigInputImgs=bigInputImgsNPZ, desire=desireNPZ,
+            # initial_state_data = recurrent_layer[0]
+    np.savez_compressed('data/numpy11', inputImgs=inputImgsNPZ, bigInputImgs=bigInputImgsNPZ, desire=desireNPZ,
                         trafficConvention=trafficConventionNPZ, initialState=initialStateNPZ, output=outputNPZ)
 
 

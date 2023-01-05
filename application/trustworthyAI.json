@@ -1,0 +1,32 @@
+{
+  "principles": [
+    {
+      "name": "Menselijke controle en menselijk toezicht",
+      "description": "KI-systemen moeten menselijke autonomie en beslissingen ondersteunen zoals ook beschreven in het beginsel Respect voor menselijke autonomie. Om ervoor te zorgen dat dit mogelijk is, moet het KI-systeem zorgen voor een democratische en gelijkwaardige samenleving. Hiervoor kan gezorgd worden door controle door de gebruiker te ondersteunen en grondrechten te bevorderen zodat ze mogelijkheid bieden voor menselijk toezicht."
+    },
+    {
+      "name": "Technische robuustheid en veiligheid",
+      "description": "Een belangrijk principe voor het verwezenlijken van een betrouwbare KI is technische robuustheid. Dit principe is nauw verbonden met het beginsel Preventie van schade.  Om technische robuustheid in KI-systemen te verwezenlijken zullen ze ontwikkeld moeten worden met een preventieve benadering van risico’s. Daarnaast moeten ze ontwikkeld worden op een wijze waardoor ze zich betrouwbaar en zoals bedoeld gedragen. Hierdoor zal onbedoelde en onverwachte schade zoveel mogelijk worden beperkt en onacceptabele schade worden voorkomen. KI-systemen worden veilig geacht als er tijdens de ontwikkeling rekening wordt gehouden met potentieel misbruik van het systeem en er daarbij stappen zijn ondernomen om misbruik zoveel mogelijk te voorkomen en te beperken."
+    },
+    {
+      "name": "Privacy en data-governance",
+      "description": "Dit principe is nauw verbonden met het beginsel van preventie van schade, dit is een grondrecht waarop KI-systemen van invloed zijn. Om privacy schade te voorkomen, is een geschikte data-governance noodzakelijk die de kwaliteit en integriteit van de gebruikte gegevens gegarandeerd. De belangrijkste punten hiervoor zijn: relevantie binnen het domein van de KI, toegangsprotocollen en de capaciteit om gegevens op de juiste manier te verwerken dat privacy wordt gegarandeerd."
+    },
+    {
+      "name": "Transparantie",
+      "description": "Het principe transparantie is nauw verbonden met het ethische beginsel van verantwoording en omvat de transparantie van de relevante elementen van een KI-systeem. De relevante elementen voor transparantie zijn: de gegevens, het systeem en de bedrijfsmodellen."
+    },
+    {
+      "name": "Diversiteit, non-discriminatie en rechtvaardigheid",
+      "description": "Om betrouwbare KI te verwezenlijken moeten inclusie en diversiteit tijdens het levenscyclus mogelijk worden gemaakt. Daarvoor moet tijdens het gehele proces rekening worden gehouden met alle betrokken partijen, zodat er gezorgd kan worden voor gelijke toegang en behandeling. Dit principe is nauw verbonden met het beginsel van rechtvaardigheid."
+    },
+    {
+      "name": "Maatschappelijk en milieuwelzijn",
+      "description": "Zoals aangegeven in het beginsel van rechtvaardigheid en preventie van schade, moeten alle wezens met gevoel en het klimaat, gedurende de KI-levenscyclus als belanghebbenden worden beschouwd. In het ideale scenario wordt KI gebruikt ten voordele van alle mensen, inclusief de toekomstige generaties."
+    },
+    {
+      "name": "Verantwoording",
+      "description": "Het principe van verantwoording is verbonden aan het beginsel van rechtvaardigheid. Aan de hand van dit principe moeten mechanismen worden ingesteld om de verantwoordelijkheid en verantwoording voor KI-systemen en de resultaten hiervan te garanderen op iedere moment van de levenscyclus. "
+    }
+  ]
+}

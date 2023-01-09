@@ -27,11 +27,11 @@ class TrustworthyAI:
     def do_tests(self):
         self._principle.doTests()
 
-    def update_data(self, principle):
+    def update_data(self):
         a = np.arange(0, self.principle.datasize)
         X = [float(x) for x in a]
         for type in typeList:
-            filtered = list(filter(lambda x: type in x['type'] or x['type'] == "Default", principle.results))
+            filtered = list(filter(lambda x: type in x['type'] or x['type'] == "Default", self.principle.results))
             filtered3 = []
             for i in filtered:
                 if not any((d['type'] == i["type"] and d['type2'] == i["type2"]) for d in filtered3):
@@ -39,15 +39,15 @@ class TrustworthyAI:
             for resul in filtered3:
                 dpg.add_text(str.strip(
                     f'{resul["type2"]} {resul["type"]} :'),
-                    parent=f'{principle.name}{type} type group')
+                    parent=f'{self.principle.name}{type} type group')
                 dpg.add_text(str.strip(
                     f'{resul["accuracy"]:.5f}%'),
-                    parent=f'{principle.name}{type} accuracy group')
+                    parent=f'{self.principle.name}{type} accuracy group')
             for line in lineList:
                 filtered2 = list(filter(lambda x: x['line'] == line, filtered))
                 for item in filtered2:
                     dpg.add_line_series(X, item['data'],
                                         label=item["type2"] + " " + item[
                                             "type"],
-                                        use_internal_label=False, parent=f'{principle.name}{type}{line} yaxis')
-                    dpg.fit_axis_data(f'{principle.name}{type}{line} xaxis')
+                                        use_internal_label=False, parent=f'{self.principle.name}{type}{line} yaxis')
+                    dpg.fit_axis_data(f'{self.principle.name}{type}{line} xaxis')

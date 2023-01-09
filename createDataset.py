@@ -18,6 +18,7 @@ def parse_image(frame):
     parsed[5] = frame[H + H // 4:H + H // 2].reshape((-1, H // 2, W // 2))
     return parsed
 
+
 def main():
     model = "models/supercombo.onnx"
 
@@ -29,7 +30,8 @@ def main():
 
     results = []
     counter = 0
-    end_counter = 1200
+    start_counter = 0
+    end_counter = 1500
     width = 512
     height = 256
     dim = (width, height)
@@ -82,7 +84,6 @@ def main():
 
         if counter >= end_counter:
             break
-
         ret, frame = cap.read()
         if ret == False:
             break
@@ -90,75 +91,76 @@ def main():
         ret2, frame2 = cap2.read()
         if ret2 == False:
             break
+        if counter >= start_counter:
+            if frame is not None:
+                img = cv2.resize(frame, dim)
+                img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV_I420)
+                parsed = parse_image(img_yuv)
 
-        if frame is not None:
-            img = cv2.resize(frame, dim)
-            img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV_I420)
-            parsed = parse_image(img_yuv)
+            if frame2 is not None:
+                img2 = cv2.resize(frame2, dim)
+                img_yuv2 = cv2.cvtColor(img2, cv2.COLOR_BGR2YUV_I420)
+                parsed2 = parse_image(img_yuv2)
 
-        if frame2 is not None:
-            img2 = cv2.resize(frame2, dim)
-            img_yuv2 = cv2.cvtColor(img2, cv2.COLOR_BGR2YUV_I420)
-            parsed2 = parse_image(img_yuv2)
+            if len(parsed_images) >= 2:
+                del parsed_images[0]
 
-        if len(parsed_images) >= 2:
-            del parsed_images[0]
+            if len(parsed_images2) >= 2:
+                del parsed_images2[0]
 
-        if len(parsed_images2) >= 2:
-            del parsed_images2[0]
+            parsed_images.append(parsed)
+            parsed_images2.append(parsed2)
 
-        parsed_images.append(parsed)
-        parsed_images2.append(parsed2)
+            if len(parsed_images) >= 2:
+                parsed_arr = np.array(parsed_images, dtype=np.float32)
+                parsed_arr.resize((1, 12, 128, 256))
 
-        if len(parsed_images) >= 2:
-            parsed_arr = np.array(parsed_images, dtype=np.float32)
-            parsed_arr.resize((1, 12, 128, 256))
+                parsed_arr2 = np.array(parsed_images2, dtype=np.float32)
+                parsed_arr2.resize((1, 12, 128, 256))
 
-            parsed_arr2 = np.array(parsed_images2, dtype=np.float32)
-            parsed_arr2.resize((1, 12, 128, 256))
+                input_imgs = session.get_inputs()[0].name
+                big_input_imgs = session.get_inputs()[1].name
+                desire = session.get_inputs()[2].name
+                traffic_convention = session.get_inputs()[3].name
+                initial_state = session.get_inputs()[4].name
+                output_name = session.get_outputs()[0].name
 
-            input_imgs = session.get_inputs()[0].name
-            big_input_imgs = session.get_inputs()[1].name
-            desire = session.get_inputs()[2].name
-            traffic_convention = session.get_inputs()[3].name
-            initial_state = session.get_inputs()[4].name
-            output_name = session.get_outputs()[0].name
+                desire_data = np.array([0], dtype=np.float32)
+                desire_data.resize((1, 8), refcheck=False)
 
-            desire_data = np.array([0], dtype=np.float32)
-            desire_data.resize((1, 8), refcheck=False)
+                if isRHD:
+                    traffic_convention_data = np.array([[0, 1]], dtype=np.float32)
+                else:
+                    traffic_convention_data = np.array([[1, 0]], dtype=np.float32)
 
-            if isRHD:
-                traffic_convention_data = np.array([[0, 1]], dtype=np.float32)
-            else:
-                traffic_convention_data = np.array([[1, 0]], dtype=np.float32)
+                result = session.run([output_name], {input_imgs: parsed_arr,
+                                                     big_input_imgs: parsed_arr2,
+                                                     desire: desire_data,
+                                                     traffic_convention: traffic_convention_data,
+                                                     initial_state: initial_state_data
+                                                     })
 
-            result = session.run([output_name], {input_imgs: parsed_arr,
-                                                 big_input_imgs: parsed_arr2,
-                                                 desire: desire_data,
-                                                 traffic_convention: traffic_convention_data,
-                                                 initial_state: initial_state_data
-                                                 })
+                res = np.array(result)
 
-            res = np.array(result)
+                if not np.any(inputImgsNPZ):
+                    inputImgsNPZ = parsed_arr
+                    bigInputImgsNPZ = parsed_arr2
+                    desireNPZ = desire_data
+                    trafficConventionNPZ = traffic_convention_data
+                    initialStateNPZ = initial_state_data
+                    outputNPZ = np.array([[1, 1, 1, 0]], dtype=np.float32)
+                else:
+                    inputImgsNPZ = np.concatenate((inputImgsNPZ, parsed_arr), axis=0)
+                    bigInputImgsNPZ = np.concatenate((bigInputImgsNPZ, parsed_arr2), axis=0)
+                    desireNPZ = np.concatenate((desireNPZ, desire_data), axis=0)
+                    trafficConventionNPZ = np.concatenate((trafficConventionNPZ, traffic_convention_data), axis=0)
+                    initialStateNPZ = np.concatenate((initialStateNPZ, initial_state_data), axis=0)
+                    outputNPZ = np.concatenate((outputNPZ, [[1, 1, 1, 0]]), axis=0)
 
-            if not np.any(inputImgsNPZ):
-                inputImgsNPZ = parsed_arr
-                bigInputImgsNPZ = parsed_arr2
-                desireNPZ = desire_data
-                trafficConventionNPZ = traffic_convention_data
-                initialStateNPZ = initial_state_data
-                outputNPZ = np.array([[1, 1, 1, 0]], dtype=np.float32)
-            else:
-                inputImgsNPZ = np.concatenate((inputImgsNPZ, parsed_arr), axis=0)
-                bigInputImgsNPZ = np.concatenate((bigInputImgsNPZ, parsed_arr2), axis=0)
-                desireNPZ = np.concatenate((desireNPZ, desire_data), axis=0)
-                trafficConventionNPZ = np.concatenate((trafficConventionNPZ, traffic_convention_data), axis=0)
-                initialStateNPZ = np.concatenate((initialStateNPZ, initial_state_data), axis=0)
-                outputNPZ = np.concatenate((outputNPZ, [[1, 1, 1, 0]]), axis=0)
-
-            recurrent_layer = res[:, :, recurent_start_idx:recurent_end_idx]
-            # initial_state_data = recurrent_layer[0]
-    np.savez_compressed('data/numpy11', inputImgs=inputImgsNPZ, bigInputImgs=bigInputImgsNPZ, desire=desireNPZ,
+                recurrent_layer = res[:, :, recurent_start_idx:recurent_end_idx]
+                initial_state_data = recurrent_layer[0]
+    np.savez_compressed('data/noRoadline', inputImgs=inputImgsNPZ, bigInputImgs=bigInputImgsNPZ,
+                        desire=desireNPZ,
                         trafficConvention=trafficConventionNPZ, initialState=initialStateNPZ, output=outputNPZ)
 
 

@@ -6,6 +6,9 @@ import numpy as np
 # Concrete strategies
 class Transparency(Principle):
 
+    def getLaneLineProb(self, result):
+        pass
+
     def __init__(self):
         self._results = []
 
@@ -23,7 +26,7 @@ class Transparency(Principle):
         pass
 
     @property
-    def results(self) -> None:
+    def results(self) -> list:
         return self._results
 
     @results.setter

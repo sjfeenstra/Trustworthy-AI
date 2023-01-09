@@ -4,6 +4,9 @@ import numpy as np
 
 class TechnicalRobustnessAndSafety(Principle):
 
+    def getLaneLineProb(self, result):
+        return super().getLaneLineProb(result)
+
     def sigmoid(self, input) -> np.array:
         return super().sigmoid(input)
 
@@ -32,13 +35,14 @@ class TechnicalRobustnessAndSafety(Principle):
 
     def addResults(self, data: np.array, type2: str, type: str) -> None:
         lineList = ["Far Left", "Close Left", "Close Right", "Far Right"]
-        res, acc = self.calculateAccuracy(data)
+        lane_line_prob = self.getLaneLineProb(data)
+        acc = self.calculateAccuracy(lane_line_prob)
         for b in range(4):
             self._results.append({
                 "type": type,
                 "type2": type2,
                 "line": lineList[b],
-                "data": np.column_stack(res)[b].tolist(),
+                "data": np.column_stack(lane_line_prob)[b].tolist(),
                 "accuracy": acc
             })
 
@@ -68,7 +72,8 @@ class TechnicalRobustnessAndSafety(Principle):
         # desire_data_7 = desire_data_zeros.copy()
         # desire_data_7[:, 7] = 1.0
 
-        self.addResults(super().runModel(), "", "Default", )
+        self.addResults(super().runModel(), "1", "Default", )
+        self.addResults(super().runModel(inputImgs=super().inputImgs_data2, bigInputImgs=super().bigInputImgs_data2, desire=super().desire_data2, trafficConvention=super().trafficConvention_data2), "2", "Traffic Convention", )
         # self.addResults(super().runModel(trafficConvention=trafficConvention_data_inverted), "Left hand drive",
         #                 "Traffic Convention")
         # self.addResults(super().runModel(trafficConvention=trafficConvention_data_ones), "Ones", "Traffic Convention")

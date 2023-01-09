@@ -6,10 +6,8 @@ import os
 
 # Strategy interface
 class Principle(ABC):
-    model = os.getenv('MODEL')
-    session = onnxruntime.InferenceSession(model, None)
-
     data = np.load(os.getenv('DATA'))
+    data2 = np.load(os.getenv('DATA2'))
 
     plan_start_idx = 0
     plan_end_idx = 4955
@@ -26,18 +24,18 @@ class Principle(ABC):
     bigInputImgs_data = data['bigInputImgs']
     desire_data = data['desire']
     trafficConvention_data = data['trafficConvention']
-    # initialState_data = data['initialState']
+    initialState_data = data['initialState']
     output_data = data['output']
 
-    initialState_data = np.array([0]).astype('float32')
-    initialState_data.resize((1, 512), refcheck=False)
+    inputImgs_data2 = data2['inputImgs']
+    bigInputImgs_data2 = data2['bigInputImgs']
+    desire_data2 = data2['desire']
+    trafficConvention_data2 = data2['trafficConvention']
+    initialState_data2 = data2['initialState']
+    output_data2 = data2['output']
 
-    input_imgs = session.get_inputs()[0].name
-    big_input_imgs = session.get_inputs()[1].name
-    desire = session.get_inputs()[2].name
-    traffic_convention = session.get_inputs()[3].name
-    initial_state = session.get_inputs()[4].name
-    output_name = session.get_outputs()[0].name
+    # initialState_data = np.array([0]).astype('float32')
+    # initialState_data.resize((1, 512), refcheck=False)
 
     @abstractmethod
     def sigmoid(self, input):
@@ -64,32 +62,36 @@ class Principle(ABC):
     @abstractmethod
     def runModel(self, inputImgs=inputImgs_data, bigInputImgs=bigInputImgs_data, desire=desire_data,
                  trafficConvention=trafficConvention_data, initialState=initialState_data):
-        results = None
-        for x in range(self.datasize):
-            result = self.session.run([self.output_name], {self.input_imgs: np.vsplit(inputImgs, self.datasize)[x],
-                                                           self.big_input_imgs: np.vsplit(bigInputImgs, self.datasize)[
-                                                               x],
-                                                           self.desire: np.vsplit(desire, self.datasize)[x],
-                                                           self.traffic_convention:
-                                                               np.vsplit(trafficConvention, self.datasize)[x],
-                                                           self.initial_state: initialState
-                                                           })
-            res = np.array(result)
-            lane_lines_prob = res[:, :, self.lane_lines_prob_start_idx:self.lane_lines_prob_end_idx]
-            lane_lines_prob = self.sigmoid(lane_lines_prob)
-            lane_lines_prob.resize([1, 8], refcheck=False)
 
-            if not np.any(results):
-                results = lane_lines_prob
+        model = os.getenv('MODEL')
+        session = onnxruntime.InferenceSession(model, None)
+        results = None
+
+        for x in range(self.datasize):
+            result = session.run([session.get_outputs()[0].name], {
+                session.get_inputs()[0].name: np.vsplit(inputImgs, self.datasize)[x],
+                session.get_inputs()[1].name: np.vsplit(bigInputImgs, self.datasize)[x],
+                session.get_inputs()[2].name: np.vsplit(desire, self.datasize)[x],
+                session.get_inputs()[3].name: np.vsplit(trafficConvention, self.datasize)[x],
+                session.get_inputs()[4].name: np.vsplit(initialState, self.datasize)[x],
+            })
+
+            if np.any(results):
+                results = np.concatenate((results, result[0]), axis=0)
             else:
-                results = np.concatenate((results, lane_lines_prob), axis=0)
+                results = result[0]
         return results
 
     @abstractmethod
-    def calculateAccuracy(self, result):
+    def getLaneLineProb(self, result):
+        lane_lines_prob = result[:, self.lane_lines_prob_start_idx:self.lane_lines_prob_end_idx:2]
+        lane_lines_prob = self.sigmoid(lane_lines_prob)
+        return lane_lines_prob
+
+    @abstractmethod
+    def calculateAccuracy(self, lane_lines_prob):
         probabilityPoint = 0.7
-        lane_lines_prob = result[:, ::2]
         probability = (lane_lines_prob >= probabilityPoint).astype(int)
-        accuracy = np.sum(probability == self.output_data) / (
-                len(self.output_data) * len(self.output_data[0]))
-        return lane_lines_prob, accuracy
+        accuracy = np.sum(probability == self.output_data) / \
+                   (len(self.output_data) * len(self.output_data[0]))
+        return accuracy

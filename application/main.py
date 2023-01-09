@@ -26,18 +26,37 @@ if __name__ == "__main__":
     trustworthyAI = TrustworthyAI(TRaSPrinciple)
 
     cap = cv2.VideoCapture(os.getenv('FCAM'))
+    cap2 = cv2.VideoCapture(os.getenv('ECAM'))
 
     frame_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     frame_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
     frames = []
-    while cap.isOpened():
 
+    while cap.isOpened():
         ret, frame = cap.read()
+
         if ret == False:
+            cap.close()
             break
         if len(frames) == trustworthyAI.principle.datasize:
+            cap.close()
             break
         frames.append(frame)
+
+    frame_width2 = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    frame_height2 = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    frames2 = []
+
+    while cap2.isOpened():
+        ret2, frame2 = cap.read()
+
+        if ret2 == False:
+            cap2.close()
+            break
+        if len(frames2) == trustworthyAI.principle.datasize:
+            cap2.close()
+            break
+        frames2.append(frame2)
 
     a = np.arange(0, trustworthyAI.principle.datasize)
     X = [float(x) for x in a]
@@ -64,7 +83,8 @@ if __name__ == "__main__":
         for principle in principles:
             user_data.principle = principle
             user_data.do_tests()
-            user_data.update_data(principle)
+            user_data.update_data()
+
 
     def tab_callback(sender, app_data, user_data):
         trustworthyAI.principle = dpg.get_item_user_data(app_data)
@@ -75,9 +95,11 @@ if __name__ == "__main__":
         filteredAliases = filter(lambda x: "line" in x, aliases)
         for alias in filteredAliases:
             dpg.set_value(alias, [[app_data, app_data], [0, 1.1]])
-        for type in typeList:
-            dpg.set_value(f'{principle.name}{type} slider', app_data)
+        filteredAliases2 = filter(lambda x: "slider" in x, aliases)
+        for alias in filteredAliases2:
+            dpg.set_value(alias, app_data)
         dpg.set_value("texture_tag", getTextureData(frames, app_data))
+        dpg.set_value("texture_tag2", getTextureData(frames2, app_data))
 
 
     def modelStructureRecursion(data):
@@ -95,6 +117,8 @@ if __name__ == "__main__":
     with dpg.texture_registry(show=False):
         dpg.add_raw_texture(frame_width, frame_height, getTextureData(frames, 0), format=dpg.mvFormat_Float_rgb,
                             tag="texture_tag")
+        dpg.add_raw_texture(frame_width2, frame_height2, getTextureData(frames2, 0), format=dpg.mvFormat_Float_rgb,
+                            tag="texture_tag2")
         dpg.add_static_texture(width, height, data, tag="image_id")
         dpg.add_static_texture(width2, height2, data2, tag="image_id2")
         dpg.add_static_texture(width3, height3, data3, tag="image_id3")
@@ -109,7 +133,8 @@ if __name__ == "__main__":
                         dpg.add_text("Overview")
                         with dpg.drawlist(width=600, height=400):
                             dpg.draw_image("image_id", (0, 0), (600, 400), uv_min=(0, 0), uv_max=(1, 1))
-                        dpg.add_button(label="Uitvoer Testen", callback=button_callback, user_data=trustworthyAI, tag="button")
+                        dpg.add_button(label="Uitvoer Testen", callback=button_callback, user_data=trustworthyAI,
+                                       tag="button")
 
                     with dpg.tab(label="Betrouwbare KI"):
                         f = open('trustworthyAI.json')
@@ -118,10 +143,9 @@ if __name__ == "__main__":
                         dpg.add_separator()
                         for principle in data['principles']:
                             dpg.add_text(principle['name'])
-                            dpg.add_text(principle['description'],wrap=1200)
+                            dpg.add_text(principle['description'], wrap=1200)
                             dpg.add_separator()
                         f.close()
-
 
                     with dpg.tab(label="Openpilot model", tag="model_tab"):
                         f = open('model.json')
@@ -166,35 +190,38 @@ if __name__ == "__main__":
             # add results pages for the principles
             for principle in principles:
                 with dpg.tab(label=principle.name, tag=principle.name):
-                        with dpg.tab_bar(parent=principle.name):
-                            for type in typeList:
-                                with dpg.tab(label=type):
-                                    with dpg.group(horizontal=True):
-                                        with dpg.subplots(2, 2, height=-1, width=-400, row_ratios=[5.0, 5.0],
-                                                          column_ratios=[5.0, 5.0],
-                                                          column_major=True, link_all_x=True):
-                                            dpg.add_plot_legend()
-                                            for line in lineList:
-                                                with dpg.plot(tag=f'{principle.name}{type}{line}plot', anti_aliased=True):
-                                                    dpg.set_item_label(f'{principle.name}{type}{line}plot', line)
-                                                    dpg.add_plot_axis(dpg.mvXAxis, label="Frames",
-                                                                      tag=f'{principle.name}{type}{line} xaxis')
-                                                    with dpg.plot_axis(dpg.mvYAxis, label="Probability",
-                                                                       tag=f'{principle.name}{type}{line} yaxis'):
-                                                        dpg.set_axis_limits(dpg.last_item(), -0.05, 1.05)
-                                                        dpg.set_axis_limits(f'{principle.name}{type}{line} xaxis', 0, 1200)
-                                                        dpg.add_line_series([0, 0], [-0.05, 1.05],
-                                                                            tag=f'{principle.name}{type}{line} line')
-                                        with dpg.group(tag=f'{principle.name}{type} group'):
-                                            dpg.add_slider_int(width=-1, max_value=trustworthyAI.principle.datasize-2, callback=plot_line, tag=f'{principle.name}{type} slider')
-                                            dpg.add_separator()
-                                            with dpg.drawlist(width=400, height=350):
-                                                dpg.draw_image("texture_tag", (0, 0), (400, 300), uv_min=(0, 0),
-                                                               uv_max=(1, 1))
-                                            dpg.add_separator()
-                                            with dpg.group(horizontal=True):
-                                                dpg.add_group(tag=f'{principle.name}{type} type group')
-                                                dpg.add_group(tag=f'{principle.name}{type} accuracy group')
+                    with dpg.tab_bar(parent=principle.name):
+                        for type in typeList:
+                            with dpg.tab(label=type):
+                                with dpg.group(horizontal=True):
+                                    with dpg.subplots(2, 2, height=-1, width=-400, row_ratios=[5.0, 5.0],
+                                                      column_ratios=[5.0, 5.0],
+                                                      column_major=True, link_all_x=True):
+                                        dpg.add_plot_legend()
+                                        for line in lineList:
+                                            with dpg.plot(tag=f'{principle.name}{type}{line}plot', anti_aliased=True):
+                                                dpg.set_item_label(f'{principle.name}{type}{line}plot', line)
+                                                dpg.add_plot_axis(dpg.mvXAxis, label="Frames",
+                                                                  tag=f'{principle.name}{type}{line} xaxis')
+                                                with dpg.plot_axis(dpg.mvYAxis, label="Probability",
+                                                                   tag=f'{principle.name}{type}{line} yaxis'):
+                                                    dpg.set_axis_limits(dpg.last_item(), -0.05, 1.05)
+                                                    dpg.add_line_series([0, 0], [-0.05, 1.05],
+                                                                        tag=f'{principle.name}{type}{line} line')
+                                    with dpg.group(tag=f'{principle.name}{type} group'):
+                                        dpg.add_slider_int(width=-1, max_value=trustworthyAI.principle.datasize - 2,
+                                                           callback=plot_line, tag=f'{principle.name}{type} slider')
+                                        dpg.add_separator()
+                                        with dpg.drawlist(width=400, height=350):
+                                            dpg.draw_image("texture_tag", (0, 0), (400, 300), uv_min=(0, 0),
+                                                           uv_max=(1, 1))
+                                        with dpg.drawlist(width=400, height=350):
+                                            dpg.draw_image("texture_tag2", (0, 0), (400, 300), uv_min=(0, 0),
+                                                           uv_max=(1, 1))
+                                        dpg.add_separator()
+                                        with dpg.group(horizontal=True):
+                                            dpg.add_group(tag=f'{principle.name}{type} type group')
+                                            dpg.add_group(tag=f'{principle.name}{type} accuracy group')
     dpg.create_viewport(title='Trustworthy AI')
     dpg.set_primary_window("Primary Window", True)
     dpg.setup_dearpygui()

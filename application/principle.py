@@ -34,8 +34,8 @@ class Principle(ABC):
     initialState_data2 = data2['initialState']
     output_data2 = data2['output']
 
-    # initialState_data = np.array([0]).astype('float32')
-    # initialState_data.resize((1, 512), refcheck=False)
+    initialState_data = np.array([0]).astype('float32')
+    initialState_data.resize((1, 512), refcheck=False)
 
     @abstractmethod
     def sigmoid(self, input):
@@ -67,13 +67,14 @@ class Principle(ABC):
         session = onnxruntime.InferenceSession(model, None)
         results = None
 
-        for x in range(self.datasize):
+        for x in range(inputImgs.shape[0]):
             result = session.run([session.get_outputs()[0].name], {
                 session.get_inputs()[0].name: np.vsplit(inputImgs, self.datasize)[x],
                 session.get_inputs()[1].name: np.vsplit(bigInputImgs, self.datasize)[x],
                 session.get_inputs()[2].name: np.vsplit(desire, self.datasize)[x],
                 session.get_inputs()[3].name: np.vsplit(trafficConvention, self.datasize)[x],
-                session.get_inputs()[4].name: np.vsplit(initialState, self.datasize)[x],
+                # session.get_inputs()[4].name: np.vsplit(initialState, self.datasize)[x],
+                session.get_inputs()[4].name: initialState,
             })
 
             if np.any(results):

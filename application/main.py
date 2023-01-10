@@ -26,7 +26,6 @@ if __name__ == "__main__":
     trustworthyAI = TrustworthyAI(TRaSPrinciple)
 
     cap = cv2.VideoCapture(os.getenv('FCAM'))
-    cap2 = cv2.VideoCapture(os.getenv('ECAM'))
 
     frame_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     frame_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -36,27 +35,29 @@ if __name__ == "__main__":
         ret, frame = cap.read()
 
         if ret == False:
-            cap.close()
+            cap.release()
             break
         if len(frames) == trustworthyAI.principle.datasize:
-            cap.close()
+            cap.release()
             break
         frames.append(frame)
 
-    frame_width2 = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-    frame_height2 = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    frames2 = []
-
-    while cap2.isOpened():
-        ret2, frame2 = cap.read()
-
-        if ret2 == False:
-            cap2.close()
-            break
-        if len(frames2) == trustworthyAI.principle.datasize:
-            cap2.close()
-            break
-        frames2.append(frame2)
+    # cap2 = cv2.VideoCapture(os.getenv('ECAM'))
+    #
+    # frame_width2 = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    # frame_height2 = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    # frames2 = []
+    #
+    # while cap2.isOpened():
+    #     ret2, frame2 = cap2.read()
+    #
+    #     if ret2 == False:
+    #         cap2.release()
+    #         break
+    #     if len(frames2) == trustworthyAI.principle.datasize:
+    #         cap2.release()
+    #         break
+    #     frames2.append(frame2)
 
     a = np.arange(0, trustworthyAI.principle.datasize)
     X = [float(x) for x in a]
@@ -99,7 +100,6 @@ if __name__ == "__main__":
         for alias in filteredAliases2:
             dpg.set_value(alias, app_data)
         dpg.set_value("texture_tag", getTextureData(frames, app_data))
-        dpg.set_value("texture_tag2", getTextureData(frames2, app_data))
 
 
     def modelStructureRecursion(data):
@@ -117,8 +117,8 @@ if __name__ == "__main__":
     with dpg.texture_registry(show=False):
         dpg.add_raw_texture(frame_width, frame_height, getTextureData(frames, 0), format=dpg.mvFormat_Float_rgb,
                             tag="texture_tag")
-        dpg.add_raw_texture(frame_width2, frame_height2, getTextureData(frames2, 0), format=dpg.mvFormat_Float_rgb,
-                            tag="texture_tag2")
+        # dpg.add_raw_texture(frame_width2, frame_height2, getTextureData(frames2, 0), format=dpg.mvFormat_Float_rgb,
+        #                     tag="texture_tag2")
         dpg.add_static_texture(width, height, data, tag="image_id")
         dpg.add_static_texture(width2, height2, data2, tag="image_id2")
         dpg.add_static_texture(width3, height3, data3, tag="image_id3")
@@ -130,14 +130,22 @@ if __name__ == "__main__":
             with dpg.tab(label="Overview"):
                 with dpg.tab_bar(tag="tab_bar2"):
                     with dpg.tab(label="Overview page") as tb1:
-                        dpg.add_text("Overview")
+                        dpg.add_text("Weglijnen zijn enorm belangrijk voor deze applicatie. In het figuur hieronder "
+                                     "worden 4 verschillende weglijnen aangeduidt met afkortingen, deze afkortingen "
+                                     "staan voor:", wrap=1200)
+                        dpg.add_text("FL: Far Left (Ver Links)")
+                        dpg.add_text("CL: Close Left (Dichtbij Links)")
+                        dpg.add_text("CR: Close Right (Dichtbij Rechts)")
+                        dpg.add_text("FR: Far Right (Ver Rechts)")
+                        dpg.add_separator()
                         with dpg.drawlist(width=600, height=400):
                             dpg.draw_image("image_id", (0, 0), (600, 400), uv_min=(0, 0), uv_max=(1, 1))
+                        dpg.add_separator()
                         dpg.add_button(label="Uitvoer Testen", callback=button_callback, user_data=trustworthyAI,
                                        tag="button")
 
                     with dpg.tab(label="Betrouwbare KI"):
-                        f = open('trustworthyAI.json')
+                        f = open(os.getenv('TRUSTWORTHYAI'))
                         data = json.load(f)
                         dpg.add_text("Principes van Betrouwbare KI van AI HLEG:")
                         dpg.add_separator()
@@ -148,7 +156,7 @@ if __name__ == "__main__":
                         f.close()
 
                     with dpg.tab(label="Openpilot model", tag="model_tab"):
-                        f = open('model.json')
+                        f = open(os.getenv('MODELINFORMATION'))
                         data = json.load(f)
                         with dpg.collapsing_header(label="Model visualisatie"):
                             dpg.add_separator()
@@ -182,7 +190,7 @@ if __name__ == "__main__":
 
                         with dpg.collapsing_header(label="Technische opbouw resultaten"):
                             dpg.add_separator()
-                            f = open('Openpilotmodel.json')
+                            f = open(os.getenv('RESULTSINFORMATION'))
                             data = json.load(f)
                             modelStructureRecursion(data)
                             f.close()
@@ -212,12 +220,12 @@ if __name__ == "__main__":
                                         dpg.add_slider_int(width=-1, max_value=trustworthyAI.principle.datasize - 2,
                                                            callback=plot_line, tag=f'{principle.name}{type} slider')
                                         dpg.add_separator()
-                                        with dpg.drawlist(width=400, height=350):
+                                        with dpg.drawlist(width=400, height=300):
                                             dpg.draw_image("texture_tag", (0, 0), (400, 300), uv_min=(0, 0),
                                                            uv_max=(1, 1))
-                                        with dpg.drawlist(width=400, height=350):
-                                            dpg.draw_image("texture_tag2", (0, 0), (400, 300), uv_min=(0, 0),
-                                                           uv_max=(1, 1))
+                                        # with dpg.drawlist(width=400, height=350):
+                                        #     dpg.draw_image("texture_tag2", (0, 0), (400, 300), uv_min=(0, 0),
+                                        #                    uv_max=(1, 1))
                                         dpg.add_separator()
                                         with dpg.group(horizontal=True):
                                             dpg.add_group(tag=f'{principle.name}{type} type group')

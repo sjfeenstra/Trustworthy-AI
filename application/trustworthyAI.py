@@ -8,7 +8,7 @@ import json
 from principle import Principle
 
 lineList = ["Far Left", "Close Left", "Close Right", "Far Right"]
-typeList = ["Traffic Convention", "Desire"]
+typeList = ["Traffic Convention", "Desire", "CameraFrames"]
 
 
 # Context class
@@ -31,14 +31,14 @@ class TrustworthyAI:
         a = np.arange(0, self.principle.datasize)
         X = [float(x) for x in a]
         for type in typeList:
-            filtered = list(filter(lambda x: type in x['type'] or x['type'] == "Default", self.principle.results))
+            filtered = list(filter(lambda x: (type in x['type'] or x['type'] == "Default"), self.principle.results))
             filtered3 = []
             for i in filtered:
                 if not any((d['type'] == i["type"] and d['type2'] == i["type2"]) for d in filtered3):
                     filtered3.append(i)
             for resul in filtered3:
                 dpg.add_text(str.strip(
-                    f'{resul["type2"]} {resul["type"]} :'),
+                    f'{resul["type2"]} {resul["type"]} : '),
                     parent=f'{self.principle.name}{type} type group')
                 dpg.add_text(str.strip(
                     f'{resul["accuracy"]:.5f}%'),

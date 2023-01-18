@@ -7,7 +7,6 @@ import os
 # Strategy interface
 class Principle(ABC):
     data = np.load(os.getenv('DATA'))
-    data2 = np.load(os.getenv('DATA2'))
 
     plan_start_idx = 0
     plan_end_idx = 4955
@@ -26,13 +25,6 @@ class Principle(ABC):
     trafficConvention_data = data['trafficConvention']
     initialState_data = data['initialState']
     output_data = data['output']
-
-    inputImgs_data2 = data2['inputImgs']
-    bigInputImgs_data2 = data2['bigInputImgs']
-    desire_data2 = data2['desire']
-    trafficConvention_data2 = data2['trafficConvention']
-    initialState_data2 = data2['initialState']
-    output_data2 = data2['output']
 
     initialState_data = np.array([0]).astype('float32')
     initialState_data.resize((1, 512), refcheck=False)
@@ -66,14 +58,14 @@ class Principle(ABC):
         model = os.getenv('MODEL')
         session = onnxruntime.InferenceSession(model, None)
         results = None
+        datasize = inputImgs.shape[0]
 
-        for x in range(inputImgs.shape[0]):
+        for x in range(datasize):
             result = session.run([session.get_outputs()[0].name], {
-                session.get_inputs()[0].name: np.vsplit(inputImgs, self.datasize)[x],
-                session.get_inputs()[1].name: np.vsplit(bigInputImgs, self.datasize)[x],
-                session.get_inputs()[2].name: np.vsplit(desire, self.datasize)[x],
-                session.get_inputs()[3].name: np.vsplit(trafficConvention, self.datasize)[x],
-                # session.get_inputs()[4].name: np.vsplit(initialState, self.datasize)[x],
+                session.get_inputs()[0].name: np.vsplit(inputImgs, datasize)[x],
+                session.get_inputs()[1].name: np.vsplit(bigInputImgs, datasize)[x],
+                session.get_inputs()[2].name: np.vsplit(desire, datasize)[x],
+                session.get_inputs()[3].name: np.vsplit(trafficConvention, datasize)[x],
                 session.get_inputs()[4].name: initialState,
             })
 
@@ -90,9 +82,8 @@ class Principle(ABC):
         return lane_lines_prob
 
     @abstractmethod
-    def calculateAccuracy(self, lane_lines_prob):
+    def calculateAccuracy(self, lane_lines_prob, outputData=output_data):
         probabilityPoint = 0.7
         probability = (lane_lines_prob >= probabilityPoint).astype(int)
-        accuracy = np.sum(probability == self.output_data) / \
-                   (len(self.output_data) * len(self.output_data[0]))
+        accuracy = np.sum(probability == outputData)/(len(outputData) * len(outputData[0]))
         return accuracy

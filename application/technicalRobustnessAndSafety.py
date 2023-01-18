@@ -1,21 +1,17 @@
 from principle import Principle
 import numpy as np
+import os
 
 
 class TechnicalRobustnessAndSafety(Principle):
+    data = np.load(os.getenv('DATA2'))
 
-    def getLaneLineProb(self, result):
-        return super().getLaneLineProb(result)
-
-    def sigmoid(self, input) -> np.array:
-        return super().sigmoid(input)
-
-    def runModel(self, inputImgs=None, bigInputImgs=None, desire=None,
-                 trafficConvention=None, initialState=None):
-        return super().runModel(inputImgs, bigInputImgs, desire, trafficConvention, initialState)
-
-    def calculateAccuracy(self, result):
-        return super().calculateAccuracy(result)
+    inputImgs_data = data['inputImgs']
+    bigInputImgs_data = data['bigInputImgs']
+    desire_data = data['desire']
+    trafficConvention_data = data['trafficConvention']
+    initialState_data = data['initialState']
+    output_data = data['output']
 
     def __init__(self):
         self._results = []
@@ -33,10 +29,26 @@ class TechnicalRobustnessAndSafety(Principle):
     def results(self, value):
         self._results = value
 
+    def getLaneLineProb(self, result):
+        return super().getLaneLineProb(result)
+
+    def sigmoid(self, input) -> np.array:
+        return super().sigmoid(input)
+
+    def runModel(self, inputImgs=None, bigInputImgs=None, desire=None,
+                 trafficConvention=None, initialState=None):
+        return super().runModel(inputImgs, bigInputImgs, desire, trafficConvention, initialState)
+
+    def calculateAccuracy(self, result, outputData):
+        return super().calculateAccuracy(result, outputData)
+
     def addResults(self, data: np.array, type2: str, type: str) -> None:
         lineList = ["Far Left", "Close Left", "Close Right", "Far Right"]
         lane_line_prob = self.getLaneLineProb(data)
-        acc = self.calculateAccuracy(lane_line_prob)
+        if data[0].shape != self.output_data[0].shape:
+            acc = self.calculateAccuracy(lane_line_prob, super().output_data)
+        else:
+            acc = self.calculateAccuracy(lane_line_prob, self.output_data)
         for b in range(4):
             self._results.append({
                 "type": type,
@@ -73,7 +85,9 @@ class TechnicalRobustnessAndSafety(Principle):
         desire_data_7[:, 7] = 1.0
 
         self.addResults(super().runModel(), "", "Default", )
-        # self.addResults(super().runModel(inputImgs=super().inputImgs_data2, bigInputImgs=super().bigInputImgs_data2, desire=super().desire_data2, trafficConvention=super().trafficConvention_data2), "2", "Traffic Convention", )
+        self.addResults(super().runModel(inputImgs=self.inputImgs_data, bigInputImgs=self.bigInputImgs_data,
+                                         desire=self.desire_data, trafficConvention=self.trafficConvention_data),
+                        "Geen Close Left", "CameraFrames")
         self.addResults(super().runModel(trafficConvention=trafficConvention_data_inverted), "Left hand drive",
                         "Traffic Convention")
         self.addResults(super().runModel(trafficConvention=trafficConvention_data_ones), "Ones", "Traffic Convention")
@@ -98,4 +112,3 @@ class TechnicalRobustnessAndSafety(Principle):
                         "Keep right", "Desire")
         self.addResults(super().runModel(desire=desire_data_7),
                         "Null", "Desire")
-        return self.results

@@ -42,28 +42,11 @@ if __name__ == "__main__":
             break
         frames.append(frame)
 
-    # cap2 = cv2.VideoCapture(os.getenv('ECAM'))
-    #
-    # frame_width2 = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-    # frame_height2 = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    # frames2 = []
-    #
-    # while cap2.isOpened():
-    #     ret2, frame2 = cap2.read()
-    #
-    #     if ret2 == False:
-    #         cap2.release()
-    #         break
-    #     if len(frames2) == trustworthyAI.principle.datasize:
-    #         cap2.release()
-    #         break
-    #     frames2.append(frame2)
-
     a = np.arange(0, trustworthyAI.principle.datasize)
     X = [float(x) for x in a]
 
     lineList = ["Far Left", "Close Left", "Close Right", "Far Right"]
-    typeList = ["Traffic Convention", "Desire"]
+    typeList = ["Traffic Convention", "Desire", "CameraFrames"]
 
     width, height, channels, data = dpg.load_image('../data/roadlines.png')
     width2, height2, channels2, data2 = dpg.load_image('../data/openpilot.png')
@@ -117,8 +100,6 @@ if __name__ == "__main__":
     with dpg.texture_registry(show=False):
         dpg.add_raw_texture(frame_width, frame_height, getTextureData(frames, 0), format=dpg.mvFormat_Float_rgb,
                             tag="texture_tag")
-        # dpg.add_raw_texture(frame_width2, frame_height2, getTextureData(frames2, 0), format=dpg.mvFormat_Float_rgb,
-        #                     tag="texture_tag2")
         dpg.add_static_texture(width, height, data, tag="image_id")
         dpg.add_static_texture(width2, height2, data2, tag="image_id2")
         dpg.add_static_texture(width3, height3, data3, tag="image_id3")
@@ -223,9 +204,6 @@ if __name__ == "__main__":
                                         with dpg.drawlist(width=400, height=300):
                                             dpg.draw_image("texture_tag", (0, 0), (400, 300), uv_min=(0, 0),
                                                            uv_max=(1, 1))
-                                        # with dpg.drawlist(width=400, height=350):
-                                        #     dpg.draw_image("texture_tag2", (0, 0), (400, 300), uv_min=(0, 0),
-                                        #                    uv_max=(1, 1))
                                         dpg.add_separator()
                                         with dpg.group(horizontal=True):
                                             dpg.add_group(tag=f'{principle.name}{type} type group')
